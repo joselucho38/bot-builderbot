@@ -1,44 +1,65 @@
-<p align="center">
-  <a href="https://builderbot.app/">
-    <picture>
-      <img src="https://builderbot.app/assets/thumbnail-vector.png" height="80">
-    </picture>
-    <h2 align="center">BuilderBot</h2>
-  </a>
-</p>
+# 🍭 Las Marquesitas djt - WhatsApp Bot
 
+Este proyecto es un chatbot automatizado desarrollado con [Builderbot](https://builderbot.app/) para gestionar pedidos de la franquicia **Las Marquesitas djt**. El bot guía a los clientes a través de un proceso intuitivo de selección, personalización y pago por medio de WhatsApp.
 
+## 🚀 Características principales
 
-<p align="center">
-  <a aria-label="NPM version" href="https://www.npmjs.com/package/@builderbot/bot">
-    <img alt="" src="https://img.shields.io/npm/v/@builderbot/bot?color=%2300c200&label=%40bot-whatsapp">
-  </a>
-  <a aria-label="Join the community on GitHub" href="https://link.codigoencasa.com/DISCORD">
-    <img alt="" src="https://img.shields.io/discord/915193197645402142?logo=discord">
-  </a>
-</p>
+- **Gestión Multi-sede (Triage)**: Identifica la zona del usuario y lo asigna a la sede correspondiente (ej. Floridablanca, El Porvenir, Cañaveral).
+- **Personalización Completa**: Permite armar marquesitas dulces o saladas paso a paso (base, frutas, salsas y toppings).
+- **Carrito de Compras**: Resumen de pedido con conversión de números a emojis para mejor legibilidad.
+- **Múltiples Métodos de Pago**: Configurado para recibir comprobantes de Nequi y Bancolombia, o gestionar cambios para pago en efectivo.
+- **Validación de Datos**: Captura segura de información del cliente (teléfono, ID, dirección, email).
 
+## 🛠️ Tecnologías
 
-## Getting Started
+- **Core**: [Builderbot](https://builderbot.app/)
+- **Provider**: Baileys (WhatsApp)
+- **Base de Datos**: In-memory (MemoryDB)
+- **Lenguaje**: TypeScript
+- **Entorno**: Node.js v20+
 
-With this library, you can build automated conversation flows agnostic to the WhatsApp provider, set up automated responses for frequently asked questions, receive and respond to messages automatically, and track interactions with customers. Additionally, you can easily set up triggers to expand functionalities limitlessly.
+## ⚙️ Instalación
+
+1. Clona el repositorio:
+   ```bash
+   git clone https://github.com/joselucho38/bot-builderbot.git
+   cd bot-builderbot
+   ```
+
+2. Instala las dependencias:
+   ```bash
+   pnpm install
+   ```
+
+3. Inicia el servidor de desarrollo:
+   ```bash
+   pnpm run dev
+   ```
+
+4. Escanea el código QR generado en la terminal (o visualiza `bot.qr.png`) con tu WhatsApp.
+
+## 📁 Estructura del Proyecto
 
 ```
-npm create builderbot@latest
+src/
+├── app.ts          # Orquestador de flujos y configuración del bot
+└── mock-data.ts    # Datos de sedes, categorías, menú e ingredientes
 ```
 
+## 📝 Flujo de Conversación
 
-## Documentation
+1. **Saludo**: Identificación del cliente.
+2. **Ubicación**: Selección de zona/sede.
+3. **Menú**: Navegación por categorías de marquesitas.
+4. **Customización**: Selección de ingredientes extras.
+5. **Confirmación**: Resumen detallado del pedido y total.
+6. **Datos de Envío**: Recolección de dirección y contacto.
+7. **Pago**: Instrucciones de transferencia o efectivo.
+8. **Finalización**: Confirmación de procesamiento por la sede.
 
-Visit [builderbot](https://builderbot.app/) to view the full documentation.
+## 👨‍💻 Autor
 
+- **Jose Luis Jimenez** (joselucho38@gmail.com)
 
-## Official Course
-
-If you want to discover all the functions and features offered by the library you can take the course.
-[View Course](https://app.codigoencasa.com/courses/builderbot?refCode=LEIFER)
-
-
-## Contact Us
-- [💻 Discord](https://link.codigoencasa.com/DISCORD)
-- [👌 𝕏 (Twitter)](https://twitter.com/leifermendez)
+---
+*Este bot es parte del ecosistema SaaS de Las Marquesitas djt.*
