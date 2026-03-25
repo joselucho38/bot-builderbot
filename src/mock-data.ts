@@ -52,7 +52,7 @@ export const CUSTOM_INGREDIENTS = {
         base: ['Pepperoni', 'Salami', 'Maicitos'],
         queso: ['Queso'],
         aderezo: ['Cheddar', 'Chipotle'],
-        fruta: ['Fresa', 'Banano', 'Durazno', 'Piña'],
-        exterior: ['Mani', 'Coco']
+        fruta: ['Piña'],
+        exterior: []
     }
 }

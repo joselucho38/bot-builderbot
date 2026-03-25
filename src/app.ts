@@ -234,6 +234,19 @@ const customSauceFlow = addKeyword<Provider, Database>(utils.setEvent('CUSTOM_SA
         
         const selection = state.get('selection') || {}
         selection.sauce = options[index]
+        
+        if (type === 'salada') {
+            const cart = state.get('cart') || []
+            const newItem = { 
+                name: `Marquesita Personalizada (${type.toUpperCase()})`, 
+                description: `Base: ${selection.base}, Frutas: ${selection.fruits}, Salsa/Aderezo: ${selection.sauce}`,
+                price: 10000 
+            }
+            cart.push(newItem)
+            await state.update({ cart, selection: null, customType: null })
+            return gotoFlow(addToCartFlow)
+        }
+        
         await state.update({ selection })
         return gotoFlow(customFinishFlow)
     })
