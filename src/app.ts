@@ -265,10 +265,16 @@ const customFruitFlow = addKeyword<Provider, Database>(utils.setEvent('CUSTOM_FR
     .addAction(async (_, { flowDynamic, state }) => {
         const type = state.get('customType')
         if (!type) return await flowDynamic('⚠️ Error de estado.')
-        const baseOptions = type === 'dulce' ? CUSTOM_INGREDIENTS.dulce.fruta : CUSTOM_INGREDIENTS.salada.fruta
+        const isSalada = type === 'salada'
+        const baseOptions = isSalada ? CUSTOM_INGREDIENTS.salada.fruta : CUSTOM_INGREDIENTS.dulce.fruta
         const options = [...baseOptions, 'Ninguno']
         const list = options.map((opt, i) => `${toEmoji(i + 1)} ${opt}`).join('\n')
-        await flowDynamic(`🍓 *Frutas*: Elige hasta *2* (ej: 1,2) o "Ninguno":\n\n${list}\n\n${toEmoji(0)} Volver\n\nEscribe los números de tu selección:`)
+        
+        const message = isSalada 
+            ? `🍍 *Piña*: Selecciona si deseas añadir piña a tu marquesita salada:\n\n${list}\n\n${toEmoji(0)} Volver\n\nEscribe el número de tu opción:`
+            : `🍓 *Frutas*: Elige hasta *2* (ej: 1,2) o "Ninguno":\n\n${list}\n\n${toEmoji(0)} Volver\n\nEscribe los números de tu selección:`
+            
+        await flowDynamic(message)
     })
     .addAnswer(null, { capture: true }, async (ctx, { state, gotoFlow, fallBack }) => {
         if (ctx.body === '0') return gotoFlow(customBaseFlow)
@@ -281,7 +287,10 @@ const customFruitFlow = addKeyword<Provider, Database>(utils.setEvent('CUSTOM_FR
         const indexes = rawInput.split(',').filter(idx => idx.trim() !== '').map(idx => parseInt(idx.trim()) - 1)
         
         if (indexes.length === 0) return fallBack(`Elige al menos una opción o 0 para volver.`)
-        if (indexes.length > 2) return fallBack('Máximo 2 opciones, por favor.')
+        const maxOptions = type === 'salada' ? 1 : 2
+        if (indexes.length > maxOptions) {
+            return fallBack(type === 'salada' ? 'Por favor selecciona solo una opción.' : 'Máximo 2 opciones, por favor.')
+        }
         
         const validSelections = []
         for (const idx of indexes) {
