@@ -42,6 +42,7 @@ const finalSummaryFlow = addKeyword<Provider, Database>(utils.setEvent('FINAL_SU
         summary += `👤 *Cliente:* ${customer.name}\n`
         summary += `📞 *Teléfono:* ${customer.phone}\n`
         summary += `📍 *Dirección:* ${customer.address}\n`
+        summary += `🏘️ *Barrio:* ${customer.neighborhood}\n`
         summary += `🪪 *Cédula:* ${customer.id}\n`
         summary += `📧 *Email:* ${customer.email}\n`
         summary += `\n🏬 *Sede:* ${branch}\n`
@@ -115,11 +116,20 @@ const customerEmailFlow = addKeyword<Provider, Database>(utils.setEvent('CUSTOME
 
 const customerIdFlow = addKeyword<Provider, Database>(utils.setEvent('CUSTOMER_ID_FLOW'))
     .addAnswer('🪪 Indícanos tu número de *Cédula/ID*:', { capture: true }, async (ctx, { state, gotoFlow }) => {
-        if (ctx.body === '0') return gotoFlow(customerAddressFlow)
+        if (ctx.body === '0') return gotoFlow(customerNeighborhoodFlow)
         const customer = state.get('customer') || {}
         customer.id = ctx.body
         await state.update({ customer })
         return gotoFlow(customerEmailFlow)
+    })
+
+const customerNeighborhoodFlow = addKeyword<Provider, Database>(utils.setEvent('CUSTOMER_NEIGHBORHOOD_FLOW'))
+    .addAnswer('🏘️ ¿Cuál es tu *barrio*?', { capture: true }, async (ctx, { state, gotoFlow }) => {
+        if (ctx.body === '0') return gotoFlow(customerAddressFlow)
+        const customer = state.get('customer') || {}
+        customer.neighborhood = ctx.body
+        await state.update({ customer })
+        return gotoFlow(customerIdFlow)
     })
 
 const customerAddressFlow = addKeyword<Provider, Database>(utils.setEvent('CUSTOMER_ADDRESS_FLOW'))
@@ -128,7 +138,7 @@ const customerAddressFlow = addKeyword<Provider, Database>(utils.setEvent('CUSTO
         const customer = state.get('customer') || {}
         customer.address = ctx.body
         await state.update({ customer })
-        return gotoFlow(customerIdFlow)
+        return gotoFlow(customerNeighborhoodFlow)
     })
 
 const customerPhoneFlow = addKeyword<Provider, Database>(utils.setEvent('CUSTOMER_PHONE_FLOW'))
