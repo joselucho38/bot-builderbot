@@ -515,9 +515,9 @@ const main = async () => {
         welcomeFlow, triageFlow, categoryFlow, itemFlow, customOrderFlow, 
         customBaseFlow, customFruitFlow, customSauceFlow, customFinishFlow, 
         addToCartFlow, confirmationFlow, modificationMenuFlow, customerDataFlow, 
-        customerPhoneFlow, customerAddressFlow, customerIdFlow, customerEmailFlow, 
-        paymentMethodFlow, cashPaymentFlow, predefinedSauceFlow, finalSummaryFlow, 
-        paymentConfirmFlow
+        customerPhoneFlow, customerAddressFlow, customerNeighborhoodFlow, 
+        customerIdFlow, customerEmailFlow, paymentMethodFlow, cashPaymentFlow, 
+        predefinedSauceFlow, finalSummaryFlow, paymentConfirmFlow
     ])
     const adapterProvider = createProvider(Provider)
     const adapterDB = new Database()
